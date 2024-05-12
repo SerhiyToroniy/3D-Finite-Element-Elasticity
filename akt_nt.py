@@ -1,4 +1,4 @@
-from global_vars import *
+from global_constants import *
 from node import Node
 
 

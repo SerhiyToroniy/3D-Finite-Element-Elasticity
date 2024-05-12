@@ -1,28 +1,30 @@
-from global_vars import *
+from global_constants import *
 from math import pow
 
 
 def dfi_alpha_8(alpha, beta, gamma, localIndex):
     alpha_i, beta_i, gamma_i = CONST["abgCoords"][localIndex]
-    return 0.125 * (1 + beta * beta_i) * (1 + gamma * gamma_i) * (
-            alpha_i * (2 * alpha * alpha_i + beta * beta_i + gamma * gamma_i - 1))
+    return 0.125 * (alpha_i * (1 + beta * beta_i) * (1 + gamma * gamma_i) * (alpha * alpha_i + beta * beta_i + gamma * gamma_i - 2) +
+                    (1 + alpha * alpha_i) * (1 + beta * beta_i) * (1 + gamma * gamma_i) * alpha_i)
 
 
 def dfi_beta_8(alpha, beta, gamma, localIndex):
     alpha_i, beta_i, gamma_i = CONST["abgCoords"][localIndex]
-    return 0.125 * (1 + alpha * alpha_i) * (1 + gamma * gamma_i) * (
-            beta_i * (alpha * alpha_i + 2 * beta * beta_i + gamma * gamma_i - 1))
+    return 0.125 * ((1 + alpha * alpha_i) * beta_i * (1 + gamma * gamma_i) * (alpha * alpha_i + beta * beta_i + gamma * gamma_i - 2) +
+                    (1 + alpha * alpha_i) * (1 + beta * beta_i) * (1 + gamma * gamma_i) * beta_i)
 
 
 def dfi_gamma_8(alpha, beta, gamma, localIndex):
     alpha_i, beta_i, gamma_i = CONST["abgCoords"][localIndex]
-    return 0.125 * (1 + alpha * alpha_i) * (1 + beta * beta_i) * (
-                gamma_i * (alpha * alpha_i + beta * beta_i + 2 * gamma * gamma_i - 1))
+    return 0.125 * ((1 + alpha * alpha_i) * (1 + beta * beta_i) * gamma_i * (alpha * alpha_i + beta * beta_i + gamma * gamma_i - 2) +
+                    (1 + alpha * alpha_i) * (1 + beta * beta_i) * (1 + gamma * gamma_i) * gamma_i)
 
 
 def dfi_alpha_20(alpha, beta, gamma, localIndex):
     alpha_i, beta_i, gamma_i = CONST["abgCoords"][localIndex]
-    return 0.25 * (1 + beta * beta_i) * (1 + gamma * gamma_i) * (alpha_i -
+    return 0.25 * (1 + beta * beta_i) * \
+           (1 + gamma * gamma_i) * \
+           (alpha_i -
             2 * alpha * pow(beta_i, 2) * pow(gamma_i, 2) -
             3 * pow(alpha, 2) * alpha_i * pow(beta_i, 2) * pow(gamma_i, 2) -
             alpha_i * pow(beta * alpha_i * gamma_i, 2) -
@@ -31,7 +33,9 @@ def dfi_alpha_20(alpha, beta, gamma, localIndex):
 
 def dfi_beta_20(alpha, beta, gamma, localIndex):
     alpha_i, beta_i, gamma_i = CONST["abgCoords"][localIndex]
-    return 0.25 * (1 + alpha * alpha_i) * (1 + gamma * gamma_i) * (beta_i -
+    return 0.25 * (1 + alpha * alpha_i) * \
+           (1 + gamma * gamma_i) * \
+           (beta_i -
             beta_i * pow(alpha * beta_i * gamma_i, 2) -
             2 * beta * pow(alpha_i, 2) * pow(gamma_i, 2) -
             3 * pow(beta, 2) * pow(alpha_i, 2) * beta_i * pow(gamma_i, 2) -
@@ -40,7 +44,9 @@ def dfi_beta_20(alpha, beta, gamma, localIndex):
 
 def dfi_gamma_20(alpha, beta, gamma, localIndex):
     alpha_i, beta_i, gamma_i = CONST["abgCoords"][localIndex]
-    return 0.25 * (1 + alpha * alpha_i) * (1 + beta * beta_i) * (gamma_i *
+    return 0.25 * (1 + alpha * alpha_i) * \
+           (1 + beta * beta_i) * \
+           (gamma_i *
             (1 - pow(alpha * beta_i * gamma_i, 2) - pow(beta * alpha_i * gamma_i, 2)) -
             2 * gamma * pow(alpha_i, 2) * pow(beta_i, 2) -
             3 * pow(gamma, 2) * gamma_i * pow(alpha_i, 2) * pow(beta_i, 2))
