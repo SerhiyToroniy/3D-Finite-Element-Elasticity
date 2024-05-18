@@ -33,6 +33,24 @@ def dpsi_tau_68(eta, tau, eta_tauIndex):
     return -tau * (1 + eta * eta_i)
 
 
+def psi_base_4(eta, tau, eta_tauIndex):
+    eta_i, tau_i = CONST["eta_tauCoords"][eta_tauIndex]
+    result = (1 / 4) * (tau * tau_i + 1) * (eta * eta_i + 1) * (eta * eta_i + tau_i * tau - 1)
+    return result
+
+
+def psi_base_57(eta, tau, eta_tauIndex):
+    eta_i, tau_i = CONST["eta_tauCoords"][eta_tauIndex]
+    result = (1 / 2) * (-eta * eta + 1) * (tau_i * tau + 1)
+    return result
+
+
+def psi_base_68(eta, tau, eta_tauIndex):
+    eta_i, tau_i = CONST["eta_tauCoords"][eta_tauIndex]
+    result = (1 / 2) * (-tau * tau + 1) * (eta_i * eta + 1)
+    return result
+
+
 def get_DPSITE():
     DPSITE_list = [
         [[0 for _ in range(CONST["eta_tauNodes"])]
@@ -49,41 +67,61 @@ def get_DPSITE():
                 CONST["gaussianCoords_2D"][gaussNode][0],
                 CONST["gaussianCoords_2D"][gaussNode][1],
                 eta_tauIndex)
+        for eta_tauIndex in range(4, 8):
+            if eta_tauIndex == 4 or eta_tauIndex == 6:
+                DPSITE_list[gaussNode][0][eta_tauIndex] = dpsi_eta_57(
+                    CONST["gaussianCoords_2D"][gaussNode][0],
+                    CONST["gaussianCoords_2D"][gaussNode][1],
+                    eta_tauIndex)
+                DPSITE_list[gaussNode][1][eta_tauIndex] = dpsi_tau_57(
+                    CONST["gaussianCoords_2D"][gaussNode][0],
+                    CONST["gaussianCoords_2D"][gaussNode][1],
+                    eta_tauIndex)
 
-        DPSITE_list[gaussNode][0][4] = dpsi_eta_57(
-            CONST["gaussianCoords_2D"][gaussNode][0],
-            CONST["gaussianCoords_2D"][gaussNode][1],
-            4)
-        DPSITE_list[gaussNode][1][4] = dpsi_tau_57(
-            CONST["gaussianCoords_2D"][gaussNode][0],
-            CONST["gaussianCoords_2D"][gaussNode][1],
-            6)
+            if eta_tauIndex == 5 or eta_tauIndex == 7:
+                DPSITE_list[gaussNode][0][eta_tauIndex] = dpsi_eta_68(
+                    CONST["gaussianCoords_2D"][gaussNode][0],
+                    CONST["gaussianCoords_2D"][gaussNode][1],
+                    eta_tauIndex)
+                DPSITE_list[gaussNode][1][eta_tauIndex] = dpsi_tau_68(
+                    CONST["gaussianCoords_2D"][gaussNode][0],
+                    CONST["gaussianCoords_2D"][gaussNode][1],
+                    eta_tauIndex)
 
-        DPSITE_list[gaussNode][0][6] = dpsi_eta_57(
-            CONST["gaussianCoords_2D"][gaussNode][0],
-            CONST["gaussianCoords_2D"][gaussNode][1],
-            6)
-        DPSITE_list[gaussNode][1][4] = dpsi_tau_57(
-            CONST["gaussianCoords_2D"][gaussNode][0],
-            CONST["gaussianCoords_2D"][gaussNode][1],
-            6)
-
-        DPSITE_list[gaussNode][0][5] = dpsi_eta_68(
-            CONST["gaussianCoords_2D"][gaussNode][0],
-            CONST["gaussianCoords_2D"][gaussNode][1],
-            5)
-        DPSITE_list[gaussNode][1][5] = dpsi_tau_68(
-            CONST["gaussianCoords_2D"][gaussNode][0],
-            CONST["gaussianCoords_2D"][gaussNode][1],
-            5)
-
-        DPSITE_list[gaussNode][0][7] = dpsi_eta_68(
-            CONST["gaussianCoords_2D"][gaussNode][0],
-            CONST["gaussianCoords_2D"][gaussNode][1],
-            7)
-        DPSITE_list[gaussNode][1][7] = dpsi_tau_68(
-            CONST["gaussianCoords_2D"][gaussNode][0],
-            CONST["gaussianCoords_2D"][gaussNode][1],
-            7)
+        # DPSITE_list[gaussNode][0][4] = dpsi_eta_57(
+        #     CONST["gaussianCoords_2D"][gaussNode][0],
+        #     CONST["gaussianCoords_2D"][gaussNode][1],
+        #     4)
+        # DPSITE_list[gaussNode][1][4] = dpsi_tau_57(
+        #     CONST["gaussianCoords_2D"][gaussNode][0],
+        #     CONST["gaussianCoords_2D"][gaussNode][1],
+        #     6)
+        #
+        # DPSITE_list[gaussNode][0][6] = dpsi_eta_57(
+        #     CONST["gaussianCoords_2D"][gaussNode][0],
+        #     CONST["gaussianCoords_2D"][gaussNode][1],
+        #     6)
+        # DPSITE_list[gaussNode][1][4] = dpsi_tau_57(
+        #     CONST["gaussianCoords_2D"][gaussNode][0],
+        #     CONST["gaussianCoords_2D"][gaussNode][1],
+        #     6)
+        #
+        # DPSITE_list[gaussNode][0][5] = dpsi_eta_68(
+        #     CONST["gaussianCoords_2D"][gaussNode][0],
+        #     CONST["gaussianCoords_2D"][gaussNode][1],
+        #     5)
+        # DPSITE_list[gaussNode][1][5] = dpsi_tau_68(
+        #     CONST["gaussianCoords_2D"][gaussNode][0],
+        #     CONST["gaussianCoords_2D"][gaussNode][1],
+        #     5)
+        #
+        # DPSITE_list[gaussNode][0][7] = dpsi_eta_68(
+        #     CONST["gaussianCoords_2D"][gaussNode][0],
+        #     CONST["gaussianCoords_2D"][gaussNode][1],
+        #     7)
+        # DPSITE_list[gaussNode][1][7] = dpsi_tau_68(
+        #     CONST["gaussianCoords_2D"][gaussNode][0],
+        #     CONST["gaussianCoords_2D"][gaussNode][1],
+        #     7)
 
     return DPSITE_list
