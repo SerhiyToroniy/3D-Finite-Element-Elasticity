@@ -100,6 +100,10 @@ def display_3d_grid(coords, nt, zu, zp):
         zaxis_title='Z',
         aspectratio=dict(x=CONST["size"]["x"], y=CONST["size"]["y"], z=CONST["size"]["z"])
     ),
-        title=f'AKT ({len(coords)} nodes)')
+        title=f'AKT ({len(coords)} nodes)',
+        scene_camera=dict(
+            eye=dict(x=3, y=-4, z=3),
+        )
+    )
 
     fig.show()

@@ -1,5 +1,5 @@
 from mg import get_MG
-from myplotly import *
+from plot_GPU import *
 from akt_nt import *
 from zu import *
 from zp import *

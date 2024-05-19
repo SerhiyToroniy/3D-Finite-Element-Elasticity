@@ -18,10 +18,10 @@ CONST["ZU"] = [
 ]
 
 CONST["ZP"] = [
-    # {"element": 4, "side": 6},
-    # {"element": 5, "side": 6},
+    # {"element": 12, "side": 6},
+    {"element": 13, "side": 6},
     {"element": 15, "side": 6},
-    {"element": 14, "side": 6},
+    # {"element": 14, "side": 6},
 ]
 
 CONST["sideNTindexes"] = {
@@ -83,7 +83,7 @@ CONST["gaussianConsts_3D"] = [[CONST["gaussianConsts"][x], CONST["gaussianConsts
 
 CONST["e"] = 100
 CONST["nu"] = 0.3
-CONST["P"] = 20
+CONST["P"] = 10
 CONST["mu"] = CONST["e"] / (2 * (1 + CONST["nu"]))
 CONST["lambda"] = CONST["e"] / ((1 + CONST["nu"]) * (1 - 2 * CONST["nu"]))
 
