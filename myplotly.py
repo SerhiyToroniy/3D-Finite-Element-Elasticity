@@ -39,22 +39,43 @@ def display_3d_grid(coords, nt, zu, zp):
     # Plot NT elements
     for element in nt:
         # lower layer
-        plot_line(fig, enumarted_AKT[element[0]], enumarted_AKT[element[1]])
-        plot_line(fig, enumarted_AKT[element[1]], enumarted_AKT[element[2]])
-        plot_line(fig, enumarted_AKT[element[2]], enumarted_AKT[element[3]])
-        plot_line(fig, enumarted_AKT[element[3]], enumarted_AKT[element[0]])
+        plot_line(fig, enumarted_AKT[element[0]], enumarted_AKT[element[8]])
+        plot_line(fig, enumarted_AKT[element[8]], enumarted_AKT[element[1]])
+
+        plot_line(fig, enumarted_AKT[element[1]], enumarted_AKT[element[9]])
+        plot_line(fig, enumarted_AKT[element[9]], enumarted_AKT[element[2]])
+
+        plot_line(fig, enumarted_AKT[element[2]], enumarted_AKT[element[10]])
+        plot_line(fig, enumarted_AKT[element[10]], enumarted_AKT[element[3]])
+
+        plot_line(fig, enumarted_AKT[element[3]], enumarted_AKT[element[11]])
+        plot_line(fig, enumarted_AKT[element[11]], enumarted_AKT[element[0]])
 
         # upper layer
-        plot_line(fig, enumarted_AKT[element[4]], enumarted_AKT[element[5]])
-        plot_line(fig, enumarted_AKT[element[5]], enumarted_AKT[element[6]])
-        plot_line(fig, enumarted_AKT[element[6]], enumarted_AKT[element[7]])
-        plot_line(fig, enumarted_AKT[element[7]], enumarted_AKT[element[4]])
+        plot_line(fig, enumarted_AKT[element[4]], enumarted_AKT[element[16]])
+        plot_line(fig, enumarted_AKT[element[16]], enumarted_AKT[element[5]])
+
+        plot_line(fig, enumarted_AKT[element[5]], enumarted_AKT[element[17]])
+        plot_line(fig, enumarted_AKT[element[17]], enumarted_AKT[element[6]])
+
+        plot_line(fig, enumarted_AKT[element[6]], enumarted_AKT[element[18]])
+        plot_line(fig, enumarted_AKT[element[18]], enumarted_AKT[element[7]])
+
+        plot_line(fig, enumarted_AKT[element[7]], enumarted_AKT[element[19]])
+        plot_line(fig, enumarted_AKT[element[19]], enumarted_AKT[element[4]])
 
         # between layers
-        plot_line(fig, enumarted_AKT[element[0]], enumarted_AKT[element[4]])
-        plot_line(fig, enumarted_AKT[element[1]], enumarted_AKT[element[5]])
-        plot_line(fig, enumarted_AKT[element[2]], enumarted_AKT[element[6]])
-        plot_line(fig, enumarted_AKT[element[3]], enumarted_AKT[element[7]])
+        plot_line(fig, enumarted_AKT[element[0]], enumarted_AKT[element[12]])
+        plot_line(fig, enumarted_AKT[element[12]], enumarted_AKT[element[4]])
+
+        plot_line(fig, enumarted_AKT[element[1]], enumarted_AKT[element[13]])
+        plot_line(fig, enumarted_AKT[element[13]], enumarted_AKT[element[5]])
+
+        plot_line(fig, enumarted_AKT[element[2]], enumarted_AKT[element[14]])
+        plot_line(fig, enumarted_AKT[element[14]], enumarted_AKT[element[6]])
+
+        plot_line(fig, enumarted_AKT[element[3]], enumarted_AKT[element[15]])
+        plot_line(fig, enumarted_AKT[element[15]], enumarted_AKT[element[7]])
 
     # Plot ZU elements
     plot_zu(fig, zu)

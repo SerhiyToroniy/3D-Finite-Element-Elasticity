@@ -4,21 +4,25 @@ CONST = {}
 
 CONST["axes"] = 3
 CONST["size"] = {"x": 2, "y": 2, "z": 2}
-CONST["division"] = {"x": 2, "y": 2, "z": 4}
+CONST["division"] = {"x": 2, "y": 2, "z": 2}
 
 CONST["elementsNumber"] = CONST["division"]["x"] * CONST["division"]["y"] * CONST["division"]["z"]
 
 CONST["localNodes"] = 20
 
-CONST["ZU"] = [{"element": 0, "side": 5},
-               {"element": 1, "side": 5},
-               {"element": 2, "side": 5},
-               {"element": 3, "side": 5}]
+CONST["ZU"] = [
+    {"element": 0, "side": 5},
+    {"element": 1, "side": 5},
+    {"element": 2, "side": 5},
+    {"element": 3, "side": 5},
+]
 
-CONST["ZP"] = [{"element": 4, "side": 6},
-               {"element": 5, "side": 6},
-               {"element": 6, "side": 6},
-               {"element": 7, "side": 6}]
+CONST["ZP"] = [
+    {"element": 4, "side": 6},
+    {"element": 5, "side": 6},
+    {"element": 6, "side": 6},
+    {"element": 7, "side": 6},
+]
 
 CONST["sideNTindexes"] = {
     1: [1, 2, 6, 5, 9, 14, 17, 13],

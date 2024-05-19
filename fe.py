@@ -9,7 +9,7 @@ def get_FE(zp):
     zp_index = 0
     for i in range(CONST["elementsNumber"]):
         if any(item["element"] == i for item in CONST["ZP"]):
-            FE.append(calculate_FE([CONST["gaussianConsts"][0], CONST["gaussianConsts"][1], CONST["gaussianConsts"][1]], CONST["P"], zp[zp_index]))
+            FE.append(calculate_FE([CONST["gaussianConsts"][0], CONST["gaussianConsts"][1], CONST["gaussianConsts"][2]], CONST["P"], zp[zp_index]))
             zp_index += 1
         else:
             FE.append(np.zeros(60).tolist())
@@ -50,7 +50,7 @@ def calculate_FE(gaussConstant, P, ZP):
     return Fe
 
 
-def DxyzDnt(xyz):  # не співпадає результат
+def DxyzDnt(xyz):
     result = []
     depsite = MATRICES["DPSITE"]
     index_for_depsite = 0
