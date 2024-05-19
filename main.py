@@ -1,5 +1,5 @@
 from mg import get_MG
-from plot_GPU import *
+from plotting import *
 from akt_nt import *
 from zu import *
 from zp import *

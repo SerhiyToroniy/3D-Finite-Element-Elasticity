@@ -3,8 +3,8 @@ from math import sqrt
 CONST = {}
 
 CONST["axes"] = 3
-CONST["size"] = {"x": 2, "y": 2, "z": 4}
-CONST["division"] = {"x": 2, "y": 2, "z": 4}
+CONST["size"] = {"x": 2, "y": 2, "z": 2}
+CONST["division"] = {"x": 2, "y": 2, "z": 2}
 
 CONST["elementsNumber"] = CONST["division"]["x"] * CONST["division"]["y"] * CONST["division"]["z"]
 
@@ -18,10 +18,7 @@ CONST["ZU"] = [
 ]
 
 CONST["ZP"] = [
-    # {"element": 12, "side": 6},
-    {"element": 13, "side": 6},
-    {"element": 15, "side": 6},
-    # {"element": 14, "side": 6},
+    {"element": 7, "side": 6},
 ]
 
 CONST["sideNTindexes"] = {
@@ -83,7 +80,7 @@ CONST["gaussianConsts_3D"] = [[CONST["gaussianConsts"][x], CONST["gaussianConsts
 
 CONST["e"] = 100
 CONST["nu"] = 0.3
-CONST["P"] = 10
+CONST["P"] = 20
 CONST["mu"] = CONST["e"] / (2 * (1 + CONST["nu"]))
 CONST["lambda"] = CONST["e"] / ((1 + CONST["nu"]) * (1 - 2 * CONST["nu"]))
 
