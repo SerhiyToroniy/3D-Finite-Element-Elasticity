@@ -3,8 +3,8 @@ from math import sqrt
 CONST = {}
 
 CONST["axes"] = 3
-CONST["size"] = {"x": 2, "y": 2, "z": 2}
-CONST["division"] = {"x": 2, "y": 2, "z": 2}
+CONST["size"] = {"x": 2, "y": 2, "z": 4}
+CONST["division"] = {"x": 2, "y": 2, "z": 4}
 
 CONST["elementsNumber"] = CONST["division"]["x"] * CONST["division"]["y"] * CONST["division"]["z"]
 
@@ -18,10 +18,10 @@ CONST["ZU"] = [
 ]
 
 CONST["ZP"] = [
-    {"element": 4, "side": 6},
+    # {"element": 4, "side": 6},
     # {"element": 5, "side": 6},
-    # {"element": 6, "side": 6},
-    # {"element": 7, "side": 6},
+    {"element": 15, "side": 6},
+    {"element": 14, "side": 6},
 ]
 
 CONST["sideNTindexes"] = {

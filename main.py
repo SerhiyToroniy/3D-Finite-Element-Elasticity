@@ -54,4 +54,5 @@ if __name__ == '__main__':
     f = get_F(fe, len(MATRICES["AKT"]), MATRICES["NT"])
     u = np.linalg.solve(MATRICES["MG"], f).tolist()
     new_AKT = get_AKT_modified(MATRICES["AKT"], u)
-    display_3d_grid([node.coords for node in new_AKT], MATRICES["NT"], zu, zp)
+    new_ZP = get_ZP(new_AKT, MATRICES["NT"])
+    display_3d_grid([node.coords for node in new_AKT], MATRICES["NT"], zu, new_ZP)

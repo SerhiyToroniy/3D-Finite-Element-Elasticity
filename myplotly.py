@@ -3,27 +3,37 @@ import plotly.graph_objects as go
 from global_constants import CONST
 
 
-def plot_line(fig, start_point, end_point, color='blue'):
+def plot_line(fig, start_point, end_point, color='blue', width=1):
     x_start, y_start, z_start = start_point
     x_end, y_end, z_end = end_point
     fig.add_trace(go.Scatter3d(x=[x_start, x_end], y=[y_start, y_end], z=[z_start, z_end],
-                               mode='lines', line=dict(color=color)))
+                               mode='lines',
+                               line=dict(color=color, width=width)))
 
 
 def plot_zu(fig, zu):
+    zu_line_width = 5
     for side in zu:
-        plot_line(fig, side[0], side[1], 'red')
-        plot_line(fig, side[1], side[2], 'red')
-        plot_line(fig, side[2], side[3], 'red')
-        plot_line(fig, side[3], side[0], 'red')
+        plot_line(fig, side[0], side[1], 'red', zu_line_width)
+        plot_line(fig, side[1], side[2], 'red', zu_line_width)
+        plot_line(fig, side[2], side[3], 'red', zu_line_width)
+        plot_line(fig, side[3], side[0], 'red', zu_line_width)
 
 
 def plot_zp(fig, zp):
+    zp_line_width = 5
     for side in zp:
-        plot_line(fig, side[0], side[1], 'green')
-        plot_line(fig, side[1], side[2], 'green')
-        plot_line(fig, side[2], side[3], 'green')
-        plot_line(fig, side[3], side[0], 'green')
+        plot_line(fig, side[0], side[4], 'green', zp_line_width)
+        plot_line(fig, side[4], side[1], 'green', zp_line_width)
+
+        plot_line(fig, side[1], side[5], 'green', zp_line_width)
+        plot_line(fig, side[5], side[2], 'green', zp_line_width)
+
+        plot_line(fig, side[2], side[6], 'green', zp_line_width)
+        plot_line(fig, side[6], side[3], 'green', zp_line_width)
+
+        plot_line(fig, side[3], side[7], 'green', zp_line_width)
+        plot_line(fig, side[7], side[0], 'green', zp_line_width)
 
 
 def display_3d_grid(coords, nt, zu, zp):
