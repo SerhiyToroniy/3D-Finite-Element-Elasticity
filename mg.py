@@ -38,16 +38,8 @@ def get_MG(MGE, NT, ZU, AKT):
                 result[index_j_for_MG][index_i_for_MG] += mge[j][i]
 
     for i in ZU:
-        target_node = Node(i)
-        index_of_point = -1
-        index_counter = 0
-        for node in AKT:
-            if node.coords[0] == target_node.coords[0] \
-                    and node.coords[1] == target_node.coords[1] \
-                    and node.coords[2] == target_node.coords[2]:
-                index_of_point = index_counter
-                break
-            index_counter += 1
+        akt_list = [node.coords for node in AKT]
+        index_of_point = akt_list.index(i)
         ix = 3 * index_of_point + 0
         iy = 3 * index_of_point + 1
         iz = 3 * index_of_point + 2

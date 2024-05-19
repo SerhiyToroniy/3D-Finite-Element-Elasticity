@@ -1,4 +1,5 @@
 from global_constants import CONST
+import numpy as np
 
 
 def get_a11(DFIXYZ, DET):
@@ -139,18 +140,25 @@ def get_a23(DFIXYZ, DET):
 
 
 def get_MGE(a11, a12, a13, a22, a23, a33):
-    mge = [[0 for _ in range(CONST["mgeSize"])]
-           for _ in range(CONST["mgeSize"])]
+    mge = np.zeros((CONST["mgeSize"], CONST["mgeSize"]))
 
-    for i in range(CONST["localNodes"]):
-        for j in range(CONST["localNodes"]):
-            # diagonals
-            mge[i][j] = a11[i][j]
-            mge[i + 20][j + 20] = a22[i][j]
-            mge[i + 40][j + 40] = a33[i][j]
+    matrix_a11 = np.array(a11)
+    matrix_a12 = np.array(a12)
+    matrix_a13 = np.array(a13)
+    matrix_a22 = np.array(a22)
+    matrix_a23 = np.array(a23)
+    matrix_a33 = np.array(a33)
 
-            mge[i][j + 20] = a12[i][j]
-            mge[i][j + 40] = a13[i][j]
-            mge[i + 20][j + 40] = a23[i][j]
+    mge[:20, :20] = matrix_a11
+    mge[:20, 20:40] = matrix_a12
+    mge[:20, 40:] = matrix_a13
+    mge[20:40, :20] = matrix_a12.T
+    mge[20:40, 20:40] = matrix_a22
+    mge[20:40, 40:] = matrix_a23
+    mge[40:, :20] = matrix_a13.T
+    mge[40:, 20:40] = matrix_a23.T
+    mge[40:, 40:] = matrix_a33
+
+    mge = mge.tolist()
 
     return mge

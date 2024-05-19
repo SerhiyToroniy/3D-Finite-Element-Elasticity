@@ -21,7 +21,7 @@ def convert_ZU_to_layer(ZU):
     unique_points = set(tuple(point) for point in converted_ZU)
     unique_points_list = [list(point) for point in unique_points]
     points = np.array(unique_points_list)
-    sorted_points = points[np.lexsort((points[:, 0], points[:, 1], points[:, 2]))]
+    sorted_points = points[np.lexsort((points[:, 0], points[:, 1], points[:, 2]))].tolist()
 
     return sorted_points
 
