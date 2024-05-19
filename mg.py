@@ -1,7 +1,5 @@
 import numpy as np
 
-from node import Node
-
 
 def get_MG(MGE, NT, ZU, AKT):
     nodes_count = len([_ for _ in AKT])
@@ -10,8 +8,8 @@ def get_MG(MGE, NT, ZU, AKT):
 
     for mge in MGE:
         index_of_MGE = MGE.index(mge)
-        for j in range(60):
-            for i in range(60):
+        for i in range(60):
+            for j in range(60):
 
                 if i < 20:
                     xyz_cord_i = 0
@@ -35,16 +33,16 @@ def get_MG(MGE, NT, ZU, AKT):
 
                 index_i_for_MG = 3 * NT[index_of_MGE][i_for_NT] + xyz_cord_i
                 index_j_for_MG = 3 * NT[index_of_MGE][j_for_NT] + xyz_cord_j
-                result[index_j_for_MG][index_i_for_MG] += mge[j][i]
+                result[index_i_for_MG][index_j_for_MG] += mge[i][j]
 
     for i in ZU:
         akt_list = [node.coords for node in AKT]
-        index_of_point = akt_list.index(i)
-        ix = 3 * index_of_point + 0
-        iy = 3 * index_of_point + 1
-        iz = 3 * index_of_point + 2
-        result[ix][ix] = 10000000000000000
-        result[iy][iy] = 10000000000000000
-        result[iz][iz] = 10000000000000000
+        global_index_of_point = akt_list.index(i)
+        ix = 3 * global_index_of_point + 0
+        iy = 3 * global_index_of_point + 1
+        iz = 3 * global_index_of_point + 2
+        result[ix][ix] = float('inf')
+        result[iy][iy] = float('inf')
+        result[iz][iz] = float('inf')
 
     return result

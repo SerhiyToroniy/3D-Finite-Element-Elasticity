@@ -18,39 +18,49 @@ def get_FE(zp):
 
 def calculate_FE(gaussConstant, P, ZP):
     DxyzDnt_ = DxyzDnt(ZP)
-    DEPSIxyzDEnt_ = DEPSIxyzDEnt()
+    PSIxyz = get_PSI_xyz()
     fe1 = []
     fe2 = []
     fe3 = []
-    for i in range(8):  # [-1, -1]
+    for i in range(8):
         fe1_value = 0
         fe2_value = 0
         fe3_value = 0
-        iterator_for_help = 0
+        psi_index_from_depsi = 0
         for m in gaussConstant:
             for n in gaussConstant:
-                DxyzDnt_item = DxyzDnt_[iterator_for_help]
-                DEPSIxyzDEnt_item = DEPSIxyzDEnt_[iterator_for_help][i]
-                fe1_value += m * n * P * (DxyzDnt_item[1][0] * DxyzDnt_item[2][1] - DxyzDnt_item[2][0] * DxyzDnt_item[1][1]) * DEPSIxyzDEnt_item
-                fe2_value += m * n * P * (DxyzDnt_item[2][0] * DxyzDnt_item[0][1] - DxyzDnt_item[0][0] * DxyzDnt_item[2][1]) * DEPSIxyzDEnt_item
-                fe3_value += m * n * P * (DxyzDnt_item[0][0] * DxyzDnt_item[1][1] - DxyzDnt_item[1][0] * DxyzDnt_item[0][1]) * DEPSIxyzDEnt_item
-                iterator_for_help += 1
+                DxyzDnt_item = DxyzDnt_[psi_index_from_depsi]
+                PSIxyz_item = PSIxyz[psi_index_from_depsi][i]
+                fe1_value += m * n * P * (DxyzDnt_item[1][0] * DxyzDnt_item[2][1] - DxyzDnt_item[2][0] * DxyzDnt_item[1][1]) * PSIxyz_item
+                fe2_value += m * n * P * (DxyzDnt_item[2][0] * DxyzDnt_item[0][1] - DxyzDnt_item[0][0] * DxyzDnt_item[2][1]) * PSIxyz_item
+                fe3_value += m * n * P * (DxyzDnt_item[0][0] * DxyzDnt_item[1][1] - DxyzDnt_item[1][0] * DxyzDnt_item[0][1]) * PSIxyz_item
+                psi_index_from_depsi += 1
         fe1.append(fe1_value)
         fe2.append(fe2_value)
         fe3.append(fe3_value)
 
-    # Створюємо масив Fe розміром 60 і заповнюємо його нулями
-    Fe = [0, 0, 0, 0, fe1[0], fe1[1], fe1[2], fe1[3], 0, 0,
-          0, 0, 0, 0, 0, 0, fe1[4], fe1[5], fe1[6], fe1[7],
-          0, 0, 0, 0, fe2[0], fe2[1], fe2[2], fe2[3], 0, 0,
-          0, 0, 0, 0, 0, 0, fe2[4], fe2[5], fe2[6], fe2[7],
-          0, 0, 0, 0, fe3[0], fe3[1], fe3[2], fe3[3], 0, 0,
-          0, 0, 0, 0, 0, 0, fe3[4], fe3[5], fe3[6], fe3[7]]
+    Fe = [
+        0, 0, 0, 0,
+        fe1[0], fe1[1], fe1[2], fe1[3],
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        fe1[4], fe1[5], fe1[6], fe1[7],
+        0, 0, 0, 0,
+        fe2[0], fe2[1], fe2[2], fe2[3],
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        fe2[4], fe2[5], fe2[6], fe2[7],
+        0, 0, 0, 0,
+        fe3[0], fe3[1], fe3[2], fe3[3],
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        fe3[4], fe3[5], fe3[6], fe3[7]
+    ]
 
     return Fe
 
 
-def DxyzDnt(xyz):
+def DxyzDnt(zp):
     result = []
     depsite = MATRICES["DPSITE"]
     index_for_depsite = 0
@@ -62,11 +72,12 @@ def DxyzDnt(xyz):
             summ_x_tau = []
             summ_y_tau = []
             summ_z_tau = []
-            for point in xyz:
-                index_of_nt = xyz.index(point)
+            for point in zp:
+                index_of_nt = zp.index(point)
                 summ_x_eta.append(point[0] * depsite[index_for_depsite][0][index_of_nt])
                 summ_y_eta.append(point[1] * depsite[index_for_depsite][0][index_of_nt])
                 summ_z_eta.append(point[2] * depsite[index_for_depsite][0][index_of_nt])
+
                 summ_x_tau.append(point[0] * depsite[index_for_depsite][1][index_of_nt])
                 summ_y_tau.append(point[1] * depsite[index_for_depsite][1][index_of_nt])
                 summ_z_tau.append(point[2] * depsite[index_for_depsite][1][index_of_nt])
@@ -79,7 +90,7 @@ def DxyzDnt(xyz):
     return result
 
 
-def DEPSIxyzDEnt():
+def get_PSI_xyz():
     result = []
     for eta in CONST["gaussianCoords"]:
         for tau in CONST["gaussianCoords"]:

@@ -13,7 +13,7 @@ def get_ZU(AKT, NT):
     return zu
 
 
-def convert_ZU_to_layer(ZU):
+def remove_duplicates_ZU(ZU):
     converted_ZU = []
     for row in ZU:
         for point in row:
@@ -21,7 +21,6 @@ def convert_ZU_to_layer(ZU):
     unique_points = set(tuple(point) for point in converted_ZU)
     unique_points_list = [list(point) for point in unique_points]
     points = np.array(unique_points_list)
-    sorted_points = points[np.lexsort((points[:, 0], points[:, 1], points[:, 2]))].tolist()
+    sorted_points = points[np.lexsort((points[:, 0], points[:, 1], points[:, 2]))].tolist()  # sorting by z then by y then by x
 
     return sorted_points
-

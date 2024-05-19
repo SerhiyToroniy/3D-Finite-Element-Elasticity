@@ -42,11 +42,10 @@ def display_3d_grid(coords, nt, zu, zp):
 
     fig = go.Figure()
 
-    # Scatter plot for nodes
     fig.add_trace(go.Scatter3d(x=x, y=y, z=z, mode='markers+text',
                                marker=dict(size=5), text=[str(i + 1) for i in range(len(coords))]))
 
-    # Plot NT elements
+    # Plot lines for each element
     for element in nt:
         # lower layer
         plot_line(fig, enumarted_AKT[element[0]], enumarted_AKT[element[8]])

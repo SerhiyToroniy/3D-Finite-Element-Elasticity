@@ -18,7 +18,6 @@ if __name__ == '__main__':
 
     zu = get_ZU(MATRICES["AKT"], MATRICES["NT"])
     zp = get_ZP(MATRICES["AKT"], MATRICES["NT"])
-    # display_3d_grid([node.coords for node in MATRICES["AKT"]], MATRICES["NT"], zu, zp)
 
     MATRICES["DFIABG"] = get_DFIABG()
     MATRICES["Jacobians"] = [
@@ -48,7 +47,7 @@ if __name__ == '__main__':
                        for e in range(CONST["elementsNumber"])]
 
     MATRICES["DPSITE"] = get_DPSITE()
-    MATRICES["MG"] = get_MG(MATRICES["MGE"], MATRICES["NT"], convert_ZU_to_layer(zu), MATRICES["AKT"])
+    MATRICES["MG"] = get_MG(MATRICES["MGE"], MATRICES["NT"], remove_duplicates_ZU(zu), MATRICES["AKT"])
 
     fe = get_FE(zp)
     f = get_F(fe, len(MATRICES["AKT"]), MATRICES["NT"])
