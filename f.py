@@ -3,7 +3,7 @@ import numpy as np
 
 def get_F(FE, AKT_COUNT, NT):
     big_matrix = np.zeros((3 * AKT_COUNT))
-    result = big_matrix.tolist()
+    F = big_matrix.tolist()
     for fe in FE:
         index_of_FE = FE.index(fe)
         for i in range(60):
@@ -18,6 +18,6 @@ def get_F(FE, AKT_COUNT, NT):
                 xyz_cord_i = 2
                 i_for_NT = i - 40
 
-            index_i_for_FE = 3 * NT[index_of_FE][i_for_NT] + xyz_cord_i
-            result[index_i_for_FE] += fe[i]
-    return result
+            index_i_for_F = 3 * NT[index_of_FE][i_for_NT] + xyz_cord_i
+            F[index_i_for_F] += fe[i]
+    return F
