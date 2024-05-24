@@ -8,15 +8,16 @@ def get_FE(zp):
     FE = []
     zp_index = 0
     for i in range(CONST["elementsNumber"]):
-        if any(item["element"] == i for item in CONST["ZP"]):
-            FE.append(calculate_FE([CONST["gaussianConsts"][0], CONST["gaussianConsts"][1], CONST["gaussianConsts"][2]], CONST["P"], zp[zp_index]))
+        zp_item = next((item for item in CONST["ZP"] if item["element"] == i), None)
+        if zp_item:
+            FE.append(calculate_FE([CONST["gaussianConsts"][0], CONST["gaussianConsts"][1], CONST["gaussianConsts"][2]], CONST["P"], zp[zp_index], zp_item["side"]))
             zp_index += 1
         else:
             FE.append(np.zeros(60).tolist())
     return FE
 
 
-def calculate_FE(gaussConstant, P, ZP):
+def calculate_FE(gaussConstant, P, ZP, ZP_Side):
     DxyzDnt_ = DxyzDnt(ZP)
     PSIxyz = get_PSI_xyz()
     fe1 = []
@@ -27,37 +28,37 @@ def calculate_FE(gaussConstant, P, ZP):
         fe2_value = 0
         fe3_value = 0
         psi_index_from_depsi = 0
-        for m in gaussConstant:
-            for n in gaussConstant:
+        for c_m in gaussConstant:
+            for c_n in gaussConstant:
                 DxyzDnt_item = DxyzDnt_[psi_index_from_depsi]
                 PSIxyz_item = PSIxyz[psi_index_from_depsi][i]
-                fe1_value += m * n * P * (DxyzDnt_item[1][0] * DxyzDnt_item[2][1] - DxyzDnt_item[2][0] * DxyzDnt_item[1][1]) * PSIxyz_item
-                fe2_value += m * n * P * (DxyzDnt_item[2][0] * DxyzDnt_item[0][1] - DxyzDnt_item[0][0] * DxyzDnt_item[2][1]) * PSIxyz_item
-                fe3_value += m * n * P * (DxyzDnt_item[0][0] * DxyzDnt_item[1][1] - DxyzDnt_item[1][0] * DxyzDnt_item[0][1]) * PSIxyz_item
+                fe1_value += c_m * c_n * P * (DxyzDnt_item[1][0] * DxyzDnt_item[2][1] - DxyzDnt_item[2][0] * DxyzDnt_item[1][1]) * PSIxyz_item
+                fe2_value += c_m * c_n * P * (DxyzDnt_item[2][0] * DxyzDnt_item[0][1] - DxyzDnt_item[0][0] * DxyzDnt_item[2][1]) * PSIxyz_item
+                fe3_value += c_m * c_n * P * (DxyzDnt_item[0][0] * DxyzDnt_item[1][1] - DxyzDnt_item[1][0] * DxyzDnt_item[0][1]) * PSIxyz_item
                 psi_index_from_depsi += 1
         fe1.append(fe1_value)
         fe2.append(fe2_value)
         fe3.append(fe3_value)
 
-    Fe = [
-        0, 0, 0, 0,
-        fe1[0], fe1[1], fe1[2], fe1[3],
-        0, 0, 0, 0,
-        0, 0, 0, 0,
-        fe1[4], fe1[5], fe1[6], fe1[7],
-        0, 0, 0, 0,
-        fe2[0], fe2[1], fe2[2], fe2[3],
-        0, 0, 0, 0,
-        0, 0, 0, 0,
-        fe2[4], fe2[5], fe2[6], fe2[7],
-        0, 0, 0, 0,
-        fe3[0], fe3[1], fe3[2], fe3[3],
-        0, 0, 0, 0,
-        0, 0, 0, 0,
-        fe3[4], fe3[5], fe3[6], fe3[7]
-    ]
+    return get_FE_60(fe1, fe2, fe3, ZP_Side)
 
-    return Fe
+
+def get_FE_60(fe1, fe2, fe3, ZP_Side):
+    FE = [0 for _ in range(60)]
+    fe1_indexes = [i for i in CONST["sideNTindexes"][ZP_Side]]
+    fe2_indexes = [i + 20 for i in CONST["sideNTindexes"][ZP_Side]]
+    fe3_indexes = [i + 40 for i in CONST["sideNTindexes"][ZP_Side]]
+
+    for i in range(8):
+        FE[fe1_indexes[i]] = fe1[i]
+
+    for i in range(8):
+        FE[fe2_indexes[i]] = fe2[i]
+
+    for i in range(8):
+        FE[fe3_indexes[i]] = fe3[i]
+
+    return FE
 
 
 def DxyzDnt(zp):

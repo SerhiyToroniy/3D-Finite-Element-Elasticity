@@ -2,8 +2,8 @@ import numpy as np
 
 
 def get_MG(MGE, NT, ZU, AKT):
-    nodes_count = len([_ for _ in AKT])
-    big_matrix = np.zeros((3 * nodes_count, 3 * nodes_count))
+    nqp = len([_ for _ in AKT])
+    big_matrix = np.zeros((3 * nqp, 3 * nqp))
     result = big_matrix.tolist()
 
     for mge in MGE:

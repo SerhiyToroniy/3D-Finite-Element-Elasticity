@@ -18,7 +18,10 @@ CONST["ZU"] = [
 ]
 
 CONST["ZP"] = [
-    {"element": 5, "side": 6},
+    {"element": 4, "side": 6},
+    # {"element": 5, "side": 6},
+    # {"element": 6, "side": 6},
+    # {"element": 7, "side": 6},
 ]
 
 CONST["sideNTindexes"] = {
