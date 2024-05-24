@@ -12,16 +12,16 @@ CONST["localNodes"] = 20
 
 CONST["ZU"] = [
     {"element": 0, "side": 5},
-    {"element": 1, "side": 5},
-    {"element": 2, "side": 5},
+    # {"element": 1, "side": 5},
+    # {"element": 2, "side": 5},
     {"element": 3, "side": 5},
 ]
 
 CONST["ZP"] = [
     {"element": 4, "side": 6},
-    # {"element": 5, "side": 6},
-    # {"element": 6, "side": 6},
-    # {"element": 7, "side": 6},
+    {"element": 5, "side": 6},
+    {"element": 6, "side": 6},
+    {"element": 7, "side": 6},
 ]
 
 CONST["sideNTindexes"] = {

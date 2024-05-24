@@ -33,6 +33,8 @@ if __name__ == '__main__':
          for gaussNode in range(CONST["gaussianNodes_3D"])]
         for e in range(CONST["elementsNumber"])]
 
+    print(MATRICES["Jacobians_DET"])
+
     for e in range(CONST["elementsNumber"]):
         MATRICES["a11"].append(get_a11(MATRICES["DFIXYZ"][e], MATRICES["Jacobians_DET"][e]))
         MATRICES["a12"].append(get_a12(MATRICES["DFIXYZ"][e], MATRICES["Jacobians_DET"][e]))
