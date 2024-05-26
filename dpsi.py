@@ -1,4 +1,3 @@
-from math import pow
 from global_constants import CONST
 import sympy as sp
 
@@ -91,16 +90,16 @@ def get_DPSITE():
         for _ in range(CONST["gaussianNodes_2D"])]  # 9
 
     for gaussNode in range(CONST["gaussianNodes_2D"]):
-        for eta_tauIndex in range(4):
-            DPSITE_list[gaussNode][0][eta_tauIndex] = dpsi_4(
-                CONST["gaussianCoords_2D"][gaussNode][0],
-                CONST["gaussianCoords_2D"][gaussNode][1],
-                eta_tauIndex, "eta")
-            DPSITE_list[gaussNode][1][eta_tauIndex] = dpsi_4(
-                CONST["gaussianCoords_2D"][gaussNode][0],
-                CONST["gaussianCoords_2D"][gaussNode][1],
-                eta_tauIndex, "tau")
-        for eta_tauIndex in range(4, 8):
+        for eta_tauIndex in range(8):
+            if eta_tauIndex < 4:
+                DPSITE_list[gaussNode][0][eta_tauIndex] = dpsi_4(
+                    CONST["gaussianCoords_2D"][gaussNode][0],
+                    CONST["gaussianCoords_2D"][gaussNode][1],
+                    eta_tauIndex, "eta")
+                DPSITE_list[gaussNode][1][eta_tauIndex] = dpsi_4(
+                    CONST["gaussianCoords_2D"][gaussNode][0],
+                    CONST["gaussianCoords_2D"][gaussNode][1],
+                    eta_tauIndex, "tau")
             if eta_tauIndex == 4 or eta_tauIndex == 6:
                 DPSITE_list[gaussNode][0][eta_tauIndex] = dpsi_57(
                     CONST["gaussianCoords_2D"][gaussNode][0],
@@ -110,7 +109,6 @@ def get_DPSITE():
                     CONST["gaussianCoords_2D"][gaussNode][0],
                     CONST["gaussianCoords_2D"][gaussNode][1],
                     eta_tauIndex, "tau")
-
             if eta_tauIndex == 5 or eta_tauIndex == 7:
                 DPSITE_list[gaussNode][0][eta_tauIndex] = dpsi_68(
                     CONST["gaussianCoords_2D"][gaussNode][0],

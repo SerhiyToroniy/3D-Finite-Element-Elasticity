@@ -1,6 +1,6 @@
 from math import sqrt
 
-CONST = {}
+CONST = dict()
 
 CONST["axes"] = 3
 CONST["size"] = {"x": 2, "y": 2, "z": 2}
@@ -103,7 +103,7 @@ CONST["eta_tauCoords"] = {
     7: [-1, 0]
 }
 
-MATRICES = {}
+MATRICES = dict()
 MATRICES["AKT"] = []
 MATRICES["NT"] = []
 MATRICES["DFIABG"] = []

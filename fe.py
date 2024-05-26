@@ -1,23 +1,23 @@
 import numpy as np
 
-from global_constants import CONST, MATRICES
 from dpsi import *
+from global_constants import MATRICES
 
 
-def get_FE(zp):
-    FE = []
+def get_FE_list(zp):
+    FE_List = []
     zp_index = 0
     for i in range(CONST["elementsNumber"]):
         zp_item = next((item for item in CONST["ZP"] if item["element"] == i), None)
         if zp_item:
-            FE.append(calculate_FE([CONST["gaussianConsts"][0], CONST["gaussianConsts"][1], CONST["gaussianConsts"][2]], CONST["P"], zp[zp_index], zp_item["side"]))
+            FE_List.append(calculate_FE([CONST["gaussianConsts"][0], CONST["gaussianConsts"][1], CONST["gaussianConsts"][2]], CONST["P"], zp[zp_index], zp_item["side"]))
             zp_index += 1
         else:
-            FE.append(np.zeros(60).tolist())
-    return FE
+            FE_List.append(np.zeros(60).tolist())
+    return FE_List
 
 
-def calculate_FE(gaussConstant, P, ZP, ZP_Side):
+def calculate_FE(gaussConstant, P, ZP, ZP_Side):  # zp is coords of this zp side, zp_side is a number of the side 1-6
     DxyzDnt_ = DxyzDnt(ZP)
     PSIxyz = get_PSI_xyz()
     fe1 = []
@@ -61,8 +61,8 @@ def get_FE_60(fe1, fe2, fe3, ZP_Side):
     return FE
 
 
-def DxyzDnt(zp):
-    result = []
+def DxyzDnt(zp):  # zp is side which contains 8 points
+    dxyzDnt = []
     depsite = MATRICES["DPSITE"]
     index_for_depsite = 0
     for _ in CONST["gaussianCoords"]:  # 3
@@ -82,17 +82,17 @@ def DxyzDnt(zp):
                 summ_x_tau.append(point[0] * depsite[index_for_depsite][1][index_of_nt])
                 summ_y_tau.append(point[1] * depsite[index_for_depsite][1][index_of_nt])
                 summ_z_tau.append(point[2] * depsite[index_for_depsite][1][index_of_nt])
-            result.append([
+            dxyzDnt.append([
                 [sum(summ_x_eta), sum(summ_x_tau)],
                 [sum(summ_y_eta), sum(summ_y_tau)],
                 [sum(summ_z_eta), sum(summ_z_tau)]
             ])
             index_for_depsite += 1
-    return result
+    return dxyzDnt
 
 
 def get_PSI_xyz():
-    result = []
+    PSI = []
     for eta in CONST["gaussianCoords"]:
         for tau in CONST["gaussianCoords"]:
             a = []
@@ -103,5 +103,5 @@ def get_PSI_xyz():
                     a.append(psi_base_57(eta, tau, i))
                 elif i == 5 or i == 7:
                     a.append(psi_base_68(eta, tau, i))
-            result.append(a)
-    return result
+            PSI.append(a)
+    return PSI

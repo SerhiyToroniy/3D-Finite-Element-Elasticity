@@ -18,14 +18,14 @@ def get_AKT(size, division):
                                                      layer * xyzSteps[2]]))
                 else:
                     for nodes in range(division["x"] + 1):
-                        AKT_list.append(Node(coords=[nodes * xyzSteps[0] * 2,
+                        AKT_list.append(Node(coords=[nodes * xyzSteps[0] * 2,  # from left to right double size step
                                                      row * xyzSteps[1],
                                                      layer * xyzSteps[2]]))
         else:
             for row in range(division["y"] + 1):
                 for nodes in range(division["x"] + 1):
-                    AKT_list.append(Node(coords=[nodes * xyzSteps[0] * 2,
-                                                 row * xyzSteps[1] * 2,
+                    AKT_list.append(Node(coords=[nodes * xyzSteps[0] * 2,  # from left to right double size step
+                                                 row * xyzSteps[1] * 2,  # from front to back double size step
                                                  layer * xyzSteps[2]]))
 
     return AKT_list
@@ -67,7 +67,7 @@ def get_NT(division, elementsNumber):
 
                 # bottom layer mids
                 NT_list[cubeIndex][8] = NT_list[cubeIndex][0] + 1
-                NT_list[cubeIndex][9] = scaleZ + scaleY + fullRowNodes + x + 1
+                NT_list[cubeIndex][9] = scaleZ + scaleY + fullRowNodes + x + 1  # +1 beacuse index starts from 0
                 NT_list[cubeIndex][10] = NT_list[cubeIndex][8] + bothRowsNodes
                 NT_list[cubeIndex][11] = NT_list[cubeIndex][9] - 1
 
