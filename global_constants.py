@@ -19,8 +19,13 @@ CONST["ZU"] = [
 
 CONST["ZP"] = [
     {"element": 4, "side": 6},
-    # {"element": 5, "side": 6},
-    # {"element": 6, "side": 6},
+    # {"element": 4, "side": 5},
+    # {"element": 4, "side": 1},
+    # {"element": 4, "side": 4},
+    # {"element": 4, "side": 1},
+    # {"element": 0, "side": 3},
+    # {"element": 4, "side": 1},
+    # {"element": 7, "side": 6},
     # {"element": 7, "side": 6},
 ]
 
@@ -88,6 +93,8 @@ CONST["mu"] = CONST["e"] / (2 * (1 + CONST["nu"]))
 CONST["lambda"] = CONST["e"] / ((1 + CONST["nu"]) * (1 - 2 * CONST["nu"]))
 
 CONST["mgeSize"] = 60
+
+CONST["negativePsides"] = [3, 4, 5]
 
 CONST["eta_tauAxes"] = 2
 CONST["eta_tauNodes"] = 8

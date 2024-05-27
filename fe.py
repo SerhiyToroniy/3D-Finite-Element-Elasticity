@@ -5,15 +5,26 @@ from global_constants import MATRICES
 
 
 def get_FE_list(zp):
-    FE_List = []
+    FE_List = [[0 for _ in range(60)]
+               for _ in range(CONST["elementsNumber"])]
     zp_index = 0
     for i in range(CONST["elementsNumber"]):
-        zp_item = next((item for item in CONST["ZP"] if item["element"] == i), None)
-        if zp_item:
-            FE_List.append(calculate_FE([CONST["gaussianConsts"][0], CONST["gaussianConsts"][1], CONST["gaussianConsts"][2]], CONST["P"], zp[zp_index], zp_item["side"]))
-            zp_index += 1
+        zp_items = [item for item in CONST["ZP"] if item["element"] == i]
+        sides_under_pressure_for_one_element = len(zp_items)  # counter how much sides are under pressure for this element
+        if sides_under_pressure_for_one_element >= 1:
+            for item in zp_items:
+                zp_item_side = item["side"]
+                zp_item_element = item["element"]
+                P = CONST["P"]
+                if zp_item_side in CONST["negativePsides"]:  # converting P to negative to simulate pressure from all sides to the center of the element
+                    P *= -1
+                fe_60 = calculate_FE([CONST["gaussianConsts"][0], CONST["gaussianConsts"][1], CONST["gaussianConsts"][2]], P, zp[zp_index], zp_item_side)
+                for index in range(60):
+                    FE_List[zp_item_element][index] += fe_60[index]
+                zp_index += 1
         else:
-            FE_List.append(np.zeros(60).tolist())
+            FE_List.append([0] * 60)
+
     return FE_List
 
 
