@@ -1,5 +1,3 @@
-import numpy as np
-
 from dpsi import *
 from global_constants import MATRICES
 

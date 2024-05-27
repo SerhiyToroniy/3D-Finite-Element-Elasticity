@@ -11,18 +11,34 @@ def plot_line(fig, start_point, end_point, color='blue', width=1):
                                line=dict(color=color, width=width)))
 
 
+def plot_point(fig, point, color='blue', size=5, text=None):
+    x, y, z = point
+    fig.add_trace(go.Scatter3d(
+        x=[x], y=[y], z=[z],
+        mode='markers+text' if text else 'markers',
+        marker=dict(size=size, color=color),
+        text=[text] if text else None
+    ))
+
+
 def plot_zu(fig, zu):
     zu_line_width = 5
     for side in zu:
-        plot_line(fig, side[0], side[1], 'red', zu_line_width)
-        plot_line(fig, side[1], side[2], 'red', zu_line_width)
-        plot_line(fig, side[2], side[3], 'red', zu_line_width)
-        plot_line(fig, side[3], side[0], 'red', zu_line_width)
+        if len(side) == 8:
+            plot_line(fig, side[0], side[1], 'red', zu_line_width)
+            plot_line(fig, side[1], side[2], 'red', zu_line_width)
+            plot_line(fig, side[2], side[3], 'red', zu_line_width)
+            plot_line(fig, side[3], side[0], 'red', zu_line_width)
+        for point in side:
+            plot_point(fig, point, 'red', zu_line_width)
 
 
 def plot_zp(fig, zp):
     zp_line_width = 5
     for side in zp:
+        for point in side:
+            plot_point(fig, point, 'green', zp_line_width)
+
         plot_line(fig, side[0], side[4], 'green', zp_line_width)
         plot_line(fig, side[4], side[1], 'green', zp_line_width)
 

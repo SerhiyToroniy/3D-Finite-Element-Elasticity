@@ -11,17 +11,18 @@ CONST["elementsNumber"] = CONST["division"]["x"] * CONST["division"]["y"] * CONS
 CONST["localNodes"] = 20
 
 CONST["ZU"] = [
-    {"element": 0, "side": 5},
-    {"element": 1, "side": 5},
-    {"element": 2, "side": 5},
-    {"element": 3, "side": 5},
+    {"element": 0, "side": 5, "nodes": "all"},  # nodes here can have value "all" (which means all local nodes) or a list of local nodes for this element like [4,10,17..]
+    {"element": 1, "side": 5, "nodes": "all"},  # side is used only when "all" nodes selected
+    {"element": 2, "side": 5, "nodes": "all"},
+    {"element": 3, "side": 5, "nodes": "all"},
 ]
 
 CONST["ZP"] = [
     {"element": 4, "side": 6},
     # {"element": 4, "side": 5},
-    # {"element": 4, "side": 1},
     # {"element": 4, "side": 4},
+    # {"element": 4, "side": 3},
+    # {"element": 4, "side": 2},
     # {"element": 4, "side": 1},
     # {"element": 0, "side": 3},
     # {"element": 4, "side": 1},

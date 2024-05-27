@@ -7,7 +7,12 @@ def get_ZU(AKT, NT):
     zu = []
     for side in CONST["ZU"]:
         local_coords = NT[side["element"]]
-        surface_indexes = CONST["sideNTindexes"][side["side"]]
+        surface_indexes = []
+        if side["nodes"] == "all":
+            surface_indexes = CONST["sideNTindexes"][side["side"]]
+        else:
+            for side_node in side["nodes"]:
+                surface_indexes.append(side_node)
         zu.append([AKT[local_coords[i]].coords for i in surface_indexes])
 
     return zu
